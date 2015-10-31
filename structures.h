@@ -11,3 +11,19 @@ typedef struct colour{
 	float g;
 	float b;
 } colour_t;
+
+enum Graphs {
+	HEIGHT,
+	WEIGHT,
+	CALORIES
+};
+
+enum Genders {
+	MALE,
+	FEMALE
+};
+
+struct Pair {
+	string x;
+	int y;
+};

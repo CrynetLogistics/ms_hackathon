@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 #include "SDL.h"
 #include "stdio.h"
 #include "math.h"
@@ -49,6 +51,68 @@ int main()
     SDL_Quit();
     return 0;
 }
+
+
+vector<Pair*> parse(Graphs graph, Genders gen) {
+	fstream file;
+	switch (graph) {
+		case HEIGHT :
+			file.open("Height.csv", ios::in);
+			break;
+		case WEIGHT :
+			file.open("Weight.csv", ios::in);
+			break;
+		case CALORIES :
+			file.open("Calories.csv", ios::in);
+			break;
+		default :
+			cout << "Unknown graph" << endl;
+			return vector<Pair*> ();
+	}
+
+	string buffer;
+	string * in;
+	vector<Pair*> data;
+	int cols = 3;
+
+	if (file.bad() || !file.is_open()) {
+		cout << "Error opening file" << endl;
+		return vector<Pair*> ();
+	}
+
+	file >> buffer; // (A/G)
+	file >> buffer; // ,
+	file >> buffer; // male
+	file >> buffer; // ,
+	file >> buffer; // female
+
+	while (file >> buffer) {
+		string label = buffer;
+		int val = -1;
+		switch (gen) {
+			case FEMALE :
+				file >> buffer; // .
+				file >> buffer; // male_val
+				file >> buffer; // ,
+				file >> val;    // val
+				break;
+			case MALE :
+				file >> buffer; // ,
+				file >> val;    // val
+				file >> buffer; // ,
+				file >> buffer; // female_val
+				break;
+		}
+		Pair * temp =  new Pair;
+		temp->x = label;
+		temp->y = val;
+		data.push_back(temp);
+	}
+
+	return data;
+
+}
+
 
 
 __global__ void simulateIteration(colour_t* d_colourGrid){
