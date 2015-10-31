@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include "SDL.h"
 #include "stdio.h"
 #include "math.h"
@@ -8,10 +9,12 @@
 #include "device_launch_parameters.h"
 #include "structures.h"
 
+using namespace std;
+
 #undef main
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 1000
-#define DISPLAY_TIME 30000
+#define DISPLAY_TIME 3000
 #define THREADS_PER_BLOCK 1024
 #define NUM_OF_BLOCKS 1000
 
@@ -21,9 +24,15 @@
 #define LINE_WIDTH 4
 
 void drawPixelRaytracer(SDL_Surface *surface , int x, int y);
+vector<Pair*> parse(Graphs graph, Genders gen);
 
 int main()
 {
+	vector<Pair*> data = parse(WEIGHT, MALE);
+	for(Pair* p : data){
+		cout<<p->x<<"  "<<p->y<<endl;
+	}
+
     SDL_Window* window = NULL;
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -44,7 +53,7 @@ int main()
 
 	printf("done");
 
-	//SDL_Delay(DISPLAY_TIME);
+	SDL_Delay(DISPLAY_TIME);
 	//Destroy window
     SDL_DestroyWindow(window);
     //Quit SDL subsystems

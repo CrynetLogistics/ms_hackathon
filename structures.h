@@ -1,4 +1,14 @@
 #pragma once
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include "SDL.h"
+#include "stdio.h"
+#include "math.h"
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include "structures.h"
 
 typedef struct vertex{
 	float x;
@@ -24,6 +34,6 @@ enum Genders {
 };
 
 struct Pair {
-	string x;
+	std::string x;
 	int y;
 };
